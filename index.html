@@ -95,7 +95,7 @@ footer p{font-size:11px;color:#333;letter-spacing:2px}
 </head>
 <body>
 <nav>
-  <div class="nav-logo">FHC<span>For Honor Championship</span></div>
+  <div class="nav-logo" id="nav-logo" onclick="handleLogoClick()">FHC<span>For Honor Championship</span></div>
   <div class="nav-links">
     <div class="nav-link active" onclick="show('classement',this)">Classement</div>
     <div class="nav-link" onclick="show('resultats',this)">Résultats</div>
@@ -247,6 +247,17 @@ function show(id,el){
 window.addEventListener('storage',()=>render());
 render();
 setInterval(render, 5000);
+
+let clickCount=0;let clickTimer=null;
+function handleLogoClick(){
+  clickCount++;
+  if(clickTimer) clearTimeout(clickTimer);
+  clickTimer=setTimeout(()=>clickCount=0,600);
+  if(clickCount>=3){
+    clickCount=0;
+    window.location.href='admin.html';
+  }
+}
 </script>
 </body>
 </html>
