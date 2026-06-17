@@ -12,17 +12,21 @@
   --dark:#0a0a0a;--surface:#111;--surface2:#181818;
   --border:#2a2a2a;--border-gold:rgba(201,168,76,0.3);
   --text:#d0c4a8;--text-dim:#666;--text-muted:#444;
+  --success-bg:#1a3a1a;--success:#4a8a4a;
+  --danger-bg:#3a0000;--danger:#cc4444;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Rajdhani',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border-gold);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
-.nav-logo{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:4px}
+.nav-logo{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:4px;cursor:default}
 .nav-logo span{color:var(--red-bright);font-size:10px;display:block;letter-spacing:3px;font-weight:400;margin-top:-2px}
 .nav-links{display:flex}
 .nav-link{padding:0 1.2rem;height:60px;display:flex;align-items:center;font-size:12px;letter-spacing:2px;font-weight:500;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase}
 .nav-link:hover{color:var(--text)}.nav-link.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-admin-btn{font-size:11px;color:var(--text-muted);cursor:pointer;padding:4px 10px;border:0.5px solid var(--border);border-radius:3px;transition:all .2s;letter-spacing:1px}
+.nav-admin-btn:hover{border-color:var(--gold);color:var(--gold)}
 
 .hero{margin-top:60px;padding:5rem 2.5rem 4rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(139,0,0,0.12) 0%,transparent 70%)}
@@ -41,6 +45,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.9
 
 .section-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:1.5rem;padding-bottom:10px;border-bottom:1px solid var(--border-gold);text-transform:uppercase}
 .card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.5rem}
+.card-header{padding:.75rem 1.25rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:600}
+.card-body{padding:1.25rem}
 
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:2px;color:var(--text-dim);border-bottom:1px solid var(--border);font-weight:500;background:var(--surface2);text-transform:uppercase}
@@ -66,44 +73,196 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 .cal-status{font-size:9px;padding:3px 10px;border-radius:2px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
 .s-upcoming{background:#0d1a0d;color:#4a8a4a;border:0.5px solid #1a3a1a}
 .s-current{background:#1a1400;color:var(--gold);border:0.5px solid #3a2a00}
-.s-done{background:#111;color:#333;border:0.5px solid #1a1a1a}
 
 .week-label{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 .5rem;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
 .match-card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:.75rem 1.25rem;margin-bottom:.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .match-teams{flex:1;display:flex;align-items:center;gap:.75rem;font-size:14px}
 .match-eq{flex:1;font-weight:500}
-.match-eq.winner{color:var(--gold)}
-.match-eq.loser{color:var(--text-muted)}
-.match-score{font-size:18px;font-weight:600;font-family:'Cinzel',serif;color:var(--text);min-width:50px;text-align:center}
+.match-eq.winner{color:var(--gold)}.match-eq.loser{color:var(--text-muted)}
+.match-score{font-size:18px;font-weight:600;font-family:'Cinzel',serif;min-width:50px;text-align:center}
 .match-meta{font-size:11px;color:var(--text-muted)}
 
 .reg-card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:1.25rem;margin-bottom:1rem;border-left:2px solid var(--gold-dim);transition:border-color .2s}
 .reg-card:hover{border-left-color:var(--gold)}
-.reg-card-title{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:.75rem;letter-spacing:1px}
+.reg-card-title{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:.75rem}
 .reg-card-body{font-size:13px;color:#777;line-height:1.8}
 .reg-card-body ul{padding-left:1.25rem}
 .reg-card-body li{margin:.2rem 0}
 .reg-card-body strong{color:#aaa;font-weight:500}
-
 .discord-btn{display:inline-flex;align-items:center;gap:10px;background:#1a0000;border:1px solid var(--red);color:var(--red-bright);font-size:12px;letter-spacing:2px;padding:10px 24px;border-radius:2px;cursor:pointer;margin-top:1.5rem;transition:all .2s;text-transform:uppercase;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:500}
 .discord-btn:hover{background:#2a0000;border-color:var(--red-bright)}
 
-footer{margin-top:4rem;padding:2rem 2.5rem;border-top:1px solid var(--border);text-align:center}
+/* ADMIN MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border-gold);border-radius:8px;width:100%;max-width:420px;overflow:hidden}
+.modal-header{padding:1rem 1.25rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);letter-spacing:2px}
+.modal-close{cursor:pointer;color:var(--text-dim);font-size:18px;line-height:1;transition:color .2s}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:1.5rem}
+
+/* ADMIN PANEL */
+.admin-section{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:1rem}
+.admin-section-header{padding:.75rem 1.25rem;border-bottom:0.5px solid var(--border);background:var(--surface2)}
+.admin-section-title{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:600}
+.admin-section-body{padding:1.25rem}
+
+.form-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:.75rem}
+.form-group{display:flex;flex-direction:column;gap:5px;flex:1;min-width:110px}
+.form-group label{font-size:11px;color:var(--text-dim);letter-spacing:1px;font-weight:500;text-transform:uppercase}
+input[type=text],input[type=date],input[type=password],select{background:var(--surface2);border:0.5px solid var(--border);color:var(--text);border-radius:4px;padding:8px 12px;font-family:'Rajdhani',sans-serif;font-size:13px;width:100%;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:var(--gold)}
+select option{background:var(--surface2)}
+
+.btn{font-size:12px;padding:7px 16px;cursor:pointer;border-radius:4px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.btn-primary{background:var(--gold);color:#0a0a0a;border:none}.btn-primary:hover{background:#dbb85c}
+.btn-secondary{background:transparent;border:0.5px solid var(--border);color:var(--text-dim)}.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.btn-danger{background:transparent;border:0.5px solid var(--border);color:var(--danger)}.btn-danger:hover{background:var(--danger-bg);border-color:var(--red)}
+.btn-sm{padding:4px 10px;font-size:10px}
+
+.alert{border-radius:4px;padding:.6rem 1rem;font-size:12px;margin-bottom:.75rem;letter-spacing:.5px}
+.alert-success{background:var(--success-bg);border:0.5px solid #2a4a2a;color:var(--success)}
+.alert-error{background:var(--danger-bg);border:0.5px solid var(--red);color:var(--danger)}
+
+.eq-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:0.5px solid var(--border)}
+.eq-item:last-child{border-bottom:none}
+.eq-item-name{font-size:13px;font-weight:500}
+.eq-item-cap{font-size:11px;color:var(--text-dim)}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-gold),transparent);margin:1rem 0}
+
+.admin-tabs{display:flex;gap:0;border-bottom:0.5px solid var(--border);margin-bottom:1.25rem}
+.admin-tab{padding:8px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;color:var(--text-dim);transition:all .2s;font-weight:500}
+.admin-tab:hover{color:var(--text)}.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.admin-page{display:none}.admin-page.active{display:block}
+
+.save-status{font-size:11px;color:var(--text-muted);transition:color .3s;letter-spacing:1px}
+.save-status.saved{color:var(--success)}
+
+footer{margin-top:4rem;padding:1.5rem 2.5rem;border-top:1px solid var(--border);text-align:center}
 footer .tagline{font-family:'Cinzel',serif;color:var(--gold-dim);font-size:12px;margin-bottom:.5rem}
 footer p{font-size:11px;color:#333;letter-spacing:2px}
 </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-logo">FHC<span>For Honor Championship</span></div>
-  <div class="nav-links">
-    <div class="nav-link active" onclick="show('classement',this)">Classement</div>
-    <div class="nav-link" onclick="show('resultats',this)">Résultats</div>
-    <div class="nav-link" onclick="show('calendrier',this)">Calendrier</div>
-    <div class="nav-link" onclick="show('reglement',this)">Règlement</div>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="nav-links">
+      <div class="nav-link active" onclick="show('classement',this)">Classement</div>
+      <div class="nav-link" onclick="show('resultats',this)">Résultats</div>
+      <div class="nav-link" onclick="show('calendrier',this)">Calendrier</div>
+      <div class="nav-link" onclick="show('reglement',this)">Règlement</div>
+    </div>
+    <div class="nav-admin-btn" onclick="openAdmin()">Admin</div>
   </div>
 </nav>
 
+<!-- MODAL LOGIN / ADMIN -->
+<div class="modal-overlay" id="admin-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Accès Admin</div>
+      <div class="modal-close" onclick="closeAdmin()">✕</div>
+    </div>
+    <div class="modal-body">
+
+      <!-- LOGIN -->
+      <div id="admin-login">
+        <div id="login-alert"></div>
+        <div class="form-group" style="margin-bottom:.75rem">
+          <label>Mot de passe</label>
+          <input type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryLogin()">
+        </div>
+        <button class="btn btn-primary" style="width:100%" onclick="tryLogin()">Accéder au panneau</button>
+      </div>
+
+      <!-- PANNEAU ADMIN -->
+      <div id="admin-panel" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <div class="save-status" id="save-status"></div>
+          <button class="btn btn-secondary btn-sm" onclick="adminLogout()">Déconnexion</button>
+        </div>
+
+        <div class="admin-tabs">
+          <div class="admin-tab active" onclick="switchAdminTab('a-equipes',this)">Équipes</div>
+          <div class="admin-tab" onclick="switchAdminTab('a-saisie',this)">Saisir</div>
+          <div class="admin-tab" onclick="switchAdminTab('a-matchs',this)">Matchs</div>
+          <div class="admin-tab" onclick="switchAdminTab('a-settings',this)">Réglages</div>
+        </div>
+
+        <!-- ÉQUIPES -->
+        <div id="a-equipes" class="admin-page active">
+          <div id="eq-alert"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Équipe</label><input type="text" id="eq-nom" placeholder="Nom de l'équipe" maxlength="30"></div>
+            <div class="form-group"><label>Capitaine</label><input type="text" id="eq-cap" placeholder="Pseudo" maxlength="30"></div>
+            <button class="btn btn-primary" onclick="ajouterEquipe()">+</button>
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:.75rem" id="eq-count">0 / 8 équipes</div>
+          <div id="eq-list"></div>
+        </div>
+
+        <!-- SAISIE -->
+        <div id="a-saisie" class="admin-page">
+          <div id="saisie-alert"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Week</label>
+              <select id="s-week">
+                <option value="1">MW 1</option><option value="2">MW 2</option><option value="3">MW 3</option>
+                <option value="4">MW 4</option><option value="5">MW 5</option><option value="6">MW 6</option>
+                <option value="7">MW 7</option><option value="SF">Demi-finale</option><option value="F">Finale</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Date</label><input type="date" id="s-date"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Équipe 1</label><select id="s-eq1"></select></div>
+            <div class="form-group" style="max-width:80px"><label>Score</label>
+              <select id="s-score1"><option>0</option><option>1</option><option selected>2</option></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Équipe 2</label><select id="s-eq2"></select></div>
+            <div class="form-group" style="max-width:80px"><label>Score</label>
+              <select id="s-score2"><option selected>0</option><option>1</option><option>2</option></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Map</label>
+              <select id="s-map">
+                <option>Citadel Gate</option><option>Harbor</option><option>Temple Garden</option>
+                <option>The Shard</option><option>Forge</option><option>River Fort</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="enregistrerMatch()">Enregistrer le match</button>
+        </div>
+
+        <!-- MATCHS -->
+        <div id="a-matchs" class="admin-page">
+          <div id="a-matchs-list"></div>
+        </div>
+
+        <!-- RÉGLAGES -->
+        <div id="a-settings" class="admin-page">
+          <div id="settings-alert"></div>
+          <div class="form-group" style="margin-bottom:.75rem"><label>Nouveau mot de passe</label><input type="password" id="new-pwd" placeholder="Nouveau mot de passe"></div>
+          <div class="form-group" style="margin-bottom:.75rem"><label>Confirmer</label><input type="password" id="confirm-pwd" placeholder="Confirmer"></div>
+          <button class="btn btn-primary" style="margin-bottom:1rem" onclick="changerMdp()">Changer le mot de passe</button>
+          <div class="divider"></div>
+          <div style="font-size:12px;color:var(--text-dim);margin-bottom:.75rem">Réinitialiser toutes les données de la saison.</div>
+          <button class="btn btn-danger" onclick="resetAll()">Réinitialiser toutes les données</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
 <div class="hero">
   <div style="font-size:11px;letter-spacing:5px;color:var(--red-bright);margin-bottom:1.5rem;text-transform:uppercase">Season 0 — Europe</div>
   <div class="hero-title">FHC</div>
@@ -155,7 +314,7 @@ footer p{font-size:11px;color:#333;letter-spacing:2px}
   <div id="reglement" class="page">
     <div class="section-title">Règlement officiel — Season 0</div>
     <div class="reg-card"><div class="reg-card-title">Format général</div><div class="reg-card-body"><ul><li>Mode <strong>Dominion 4v4</strong> · Région EU · Crossplay autorisé · 8 équipes max</li><li>Saison régulière <strong>(BO3)</strong> → Playoffs Top 4 <strong>(BO5)</strong> → Finale <strong>(BO5)</strong></li><li>Demi-finales : 1er vs 4ème · 2ème vs 3ème — aucun avantage au mieux classé</li></ul></div></div>
-    <div class="reg-card"><div class="reg-card-title">Composition des équipes</div><div class="reg-card-body"><ul><li>4 joueurs titulaires + 1 remplaçant maximum</li><li>Un capitaine officiel par équipe</li><li>Aucune substitution en cours de BO · Roster lock 3 semaines avant la saison</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Composition des équipes</div><div class="reg-card-body"><ul><li>4 joueurs titulaires + 1 remplaçant maximum</li><li>Un capitaine officiel par équipe · Aucune substitution en cours de BO</li><li>Roster lock 3 semaines avant la saison</li></ul></div></div>
     <div class="reg-card"><div class="reg-card-title">Ban system — Accumulating Bans Capped</div><div class="reg-card-body"><ul><li>+1 ban par équipe à chaque manche · Cap : <strong>3 bans/équipe (6 au total)</strong></li><li>Les bans sont cumulatifs sur toute la durée du BO</li></ul></div></div>
     <div class="reg-card"><div class="reg-card-title">Hero rules & Blind Pick</div><div class="reg-card-body"><ul><li>Doublons interdits · Blind pick après les bans</li><li>Tout nouveau héros automatiquement banni jusqu'à la saison suivante</li><li><strong>Juren banni pour toute la Season 0</strong></li><li>Emergency Flex Rule : 1 par BO si plus aucun héros disponible</li></ul></div></div>
     <div class="reg-card"><div class="reg-card-title">Maps — Pool Season 0</div><div class="reg-card-body"><ul><li>Citadel Gate · Harbor · Temple Garden · The Shard · Forge · River Fort</li><li>Manche 1 : coin flip · Manches suivantes : choix de l'équipe perdante</li></ul></div></div>
@@ -172,18 +331,57 @@ footer p{font-size:11px;color:#333;letter-spacing:2px}
 </footer>
 
 <script>
-const KEY = 'fhc-data-v1';
+const KEY='fhc-data-v1';
+const PWD_KEY='fhc-admin-pwd';
+const DEFAULT_PWD='FHC2025';
 
-function loadState(){
-  try{ const d=localStorage.getItem(KEY); return d?JSON.parse(d):{equipes:[],matchs:[]}; }
-  catch(e){ return {equipes:[],matchs:[]}; }
+function getState(){try{const d=localStorage.getItem(KEY);return d?JSON.parse(d):{equipes:[],matchs:[]};}catch(e){return{equipes:[],matchs:[]};}}
+function setState(s){localStorage.setItem(KEY,JSON.stringify(s));showSaved();}
+function getPwd(){return localStorage.getItem(PWD_KEY)||DEFAULT_PWD;}
+
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+}
+
+function openAdmin(){document.getElementById('admin-overlay').classList.add('open');}
+function closeAdmin(){document.getElementById('admin-overlay').classList.remove('open');}
+document.getElementById('admin-overlay').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+
+function tryLogin(){
+  const val=document.getElementById('pwd-input').value;
+  if(val===getPwd()){
+    sessionStorage.setItem('fhc-auth','1');
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    document.getElementById('modal-title').textContent='Panneau Admin';
+    renderAdmin();
+  } else {
+    showAlert('login-alert','Mot de passe incorrect.','error');
+    document.getElementById('pwd-input').value='';
+  }
+}
+
+function adminLogout(){
+  sessionStorage.removeItem('fhc-auth');
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-login').style.display='block';
+  document.getElementById('modal-title').textContent='Accès Admin';
+  document.getElementById('pwd-input').value='';
+}
+
+function showSaved(){
+  const el=document.getElementById('save-status');
+  el.textContent='✓ Sauvegardé';el.classList.add('saved');
+  setTimeout(()=>{el.textContent='';el.classList.remove('saved');},2000);
 }
 
 function calcClassement(state){
   const stats={};
   state.equipes.forEach(eq=>{stats[eq.nom]={nom:eq.nom,j:0,v:0,d:0,mw:0,ml:0,pts:0};});
   state.matchs.forEach(m=>{
-    if(!stats[m.eq1]||!stats[m.eq2]) return;
+    if(!stats[m.eq1]||!stats[m.eq2])return;
     const s1=parseInt(m.score1),s2=parseInt(m.score2);
     stats[m.eq1].j++;stats[m.eq2].j++;
     stats[m.eq1].mw+=s1;stats[m.eq1].ml+=s2;
@@ -194,10 +392,9 @@ function calcClassement(state){
   return Object.values(stats).sort((a,b)=>b.pts-a.pts||((b.mw-b.ml)-(a.mw-a.ml))||b.v-a.v);
 }
 
-function render(){
-  const state=loadState();
+function renderPublic(){
+  const state=getState();
   const cl=calcClassement(state);
-
   const tbody=document.getElementById('cl-body');
   if(cl.length===0){
     tbody.innerHTML='<tr><td colspan="8" class="empty">La saison n\'a pas encore commencé.</td></tr>';
@@ -209,44 +406,130 @@ function render(){
       return `<tr><td><span class="rank ${rc}">${i+1}</span></td><td class="team-name">${e.nom}</td><td style="color:var(--text-dim)">${e.j}</td><td>${e.v}</td><td style="color:var(--text-dim)">${e.d}</td><td style="color:${diff>0?'#4a8a4a':diff<0?'#8a4a4a':'var(--text-dim)'}">${diff>0?'+'+diff:diff}</td><td class="pts">${e.pts}</td><td>${po}</td></tr>`;
     }).join('');
   }
-
   const rList=document.getElementById('res-list');
-  const regularMatchs=state.matchs.filter(m=>!['SF','F'].includes(m.week));
   if(state.matchs.length===0){
     rList.innerHTML='<div class="empty">Aucun match joué pour le moment.<br>La saison débute le 7 juillet 2025.</div>';
   } else {
     const byWeek={};
     state.matchs.forEach(m=>{(byWeek[m.week]=byWeek[m.week]||[]).push(m);});
     const wLabel=w=>w==='SF'?'Demi-finales':w==='F'?'Finale':'Match Week '+w;
-    rList.innerHTML=Object.entries(byWeek).sort((a,b)=>{
-      const o=['1','2','3','4','5','6','7','SF','F'];
-      return o.indexOf(a[0])-o.indexOf(b[0]);
-    }).map(([w,ms])=>`
+    rList.innerHTML=Object.entries(byWeek).sort((a,b)=>{const o=['1','2','3','4','5','6','7','SF','F'];return o.indexOf(a[0])-o.indexOf(b[0]);}).map(([w,ms])=>`
       <div class="week-label">${wLabel(w)}</div>
-      ${ms.map(m=>{
-        const s1=parseInt(m.score1),s2=parseInt(m.score2);
-        return `<div class="match-card">
-          <div class="match-teams">
-            <div class="match-eq ${s1>s2?'winner':'loser'}">${m.eq1}</div>
-            <div class="match-score">${m.score1} — ${m.score2}</div>
-            <div class="match-eq ${s2>s1?'winner':'loser'}">${m.eq2}</div>
-          </div>
-          <div class="match-meta">${m.map||''} ${m.date?'· '+m.date:''}</div>
-        </div>`;
-      }).join('')}`).join('');
+      ${ms.map(m=>{const s1=parseInt(m.score1),s2=parseInt(m.score2);return`<div class="match-card"><div class="match-teams"><div class="match-eq ${s1>s2?'winner':'loser'}">${m.eq1}</div><div class="match-score">${m.score1} — ${m.score2}</div><div class="match-eq ${s2>s1?'winner':'loser'}">${m.eq2}</div></div><div class="match-meta">${m.map||''} ${m.date?'· '+m.date:''}</div></div>`;}).join('')}`).join('');
   }
 }
 
-function show(id,el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
+function renderAdmin(){
+  const state=getState();
+  document.getElementById('eq-count').textContent=state.equipes.length+' / 8 équipes';
+  const eqList=document.getElementById('eq-list');
+  if(state.equipes.length===0){
+    eqList.innerHTML='<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:1rem">Aucune équipe.</div>';
+  } else {
+    eqList.innerHTML=state.equipes.map((eq,i)=>`
+      <div class="eq-item">
+        <div><div class="eq-item-name">${eq.nom}</div><div class="eq-item-cap">Cap : ${eq.cap||'—'}</div></div>
+        <button class="btn btn-danger btn-sm" onclick="supprimerEquipe(${i})">Retirer</button>
+      </div>`).join('');
+  }
+  ['s-eq1','s-eq2'].forEach(id=>{
+    const sel=document.getElementById(id);const val=sel.value;
+    sel.innerHTML=state.equipes.length===0?'<option>— Aucune équipe —</option>':state.equipes.map(e=>`<option value="${e.nom}">${e.nom}</option>`).join('');
+    if(val)sel.value=val;
+  });
+  const mList=document.getElementById('a-matchs-list');
+  if(state.matchs.length===0){
+    mList.innerHTML='<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:1rem">Aucun match.</div>';
+  } else {
+    const byWeek={};
+    state.matchs.forEach(m=>{(byWeek[m.week]=byWeek[m.week]||[]).push(m);});
+    const wLabel=w=>w==='SF'?'Demi-finales':w==='F'?'Finale':'MW '+w;
+    mList.innerHTML=Object.entries(byWeek).sort((a,b)=>{const o=['1','2','3','4','5','6','7','SF','F'];return o.indexOf(a[0])-o.indexOf(b[0]);}).map(([w,ms])=>`
+      <div style="font-size:10px;color:var(--gold);letter-spacing:2px;margin:.75rem 0 .4rem;text-transform:uppercase">${wLabel(w)}</div>
+      ${ms.map(m=>{const s1=parseInt(m.score1),s2=parseInt(m.score2);return`<div style="display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:0.5px solid var(--border);font-size:13px"><span style="color:${s1>s2?'var(--gold)':'var(--text-muted)'}">${m.eq1}</span><span style="font-family:'Cinzel',serif;padding:0 .5rem">${m.score1}—${m.score2}</span><span style="color:${s2>s1?'var(--gold)':'var(--text-muted)'}">${m.eq2}</span><button class="btn btn-danger btn-sm" onclick="supprimerMatch('${m.id}')">✕</button></div>`;}).join('')}`).join('');
+  }
 }
 
-window.addEventListener('storage',()=>render());
+function render(){renderPublic();if(sessionStorage.getItem('fhc-auth')==='1')renderAdmin();}
+
+function switchAdminTab(id,el){
+  document.querySelectorAll('.admin-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+}
+
+function showAlert(id,msg,type='success'){
+  const el=document.getElementById(id);
+  el.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;
+  if(type==='success')setTimeout(()=>el.innerHTML='',3000);
+}
+
+function ajouterEquipe(){
+  const nom=document.getElementById('eq-nom').value.trim();
+  const cap=document.getElementById('eq-cap').value.trim();
+  if(!nom){showAlert('eq-alert','Entrez un nom.','error');return;}
+  const state=getState();
+  if(state.equipes.length>=8){showAlert('eq-alert','Maximum 8 équipes.','error');return;}
+  if(state.equipes.find(e=>e.nom.toLowerCase()===nom.toLowerCase())){showAlert('eq-alert','Équipe déjà existante.','error');return;}
+  state.equipes.push({nom,cap});
+  document.getElementById('eq-nom').value='';document.getElementById('eq-cap').value='';
+  showAlert('eq-alert',`"${nom}" ajoutée.`,'success');
+  setState(state);render();
+}
+
+function supprimerEquipe(i){
+  if(!confirm('Retirer cette équipe ?'))return;
+  const state=getState();state.equipes.splice(i,1);setState(state);render();
+}
+
+function enregistrerMatch(){
+  const eq1=document.getElementById('s-eq1').value;
+  const eq2=document.getElementById('s-eq2').value;
+  const score1=document.getElementById('s-score1').value;
+  const score2=document.getElementById('s-score2').value;
+  const week=document.getElementById('s-week').value;
+  const map=document.getElementById('s-map').value;
+  const date=document.getElementById('s-date').value;
+  if(!eq1||!eq2||eq1===eq2){showAlert('saisie-alert','Équipes invalides.','error');return;}
+  if(parseInt(score1)===parseInt(score2)){showAlert('saisie-alert','Score nul impossible.','error');return;}
+  const winner=parseInt(score1)>parseInt(score2)?eq1:eq2;
+  const state=getState();
+  state.matchs.push({id:Date.now()+'',eq1,eq2,score1,score2,week,map,date});
+  showAlert('saisie-alert',`Enregistré. Vainqueur : ${winner}.`,'success');
+  setState(state);render();
+}
+
+function supprimerMatch(id){
+  if(!confirm('Supprimer ce match ?'))return;
+  const state=getState();state.matchs=state.matchs.filter(m=>m.id!==id);setState(state);render();
+}
+
+function changerMdp(){
+  const np=document.getElementById('new-pwd').value;
+  const cp=document.getElementById('confirm-pwd').value;
+  if(!np||np.length<4){showAlert('settings-alert','Mot de passe trop court.','error');return;}
+  if(np!==cp){showAlert('settings-alert','Les mots de passe ne correspondent pas.','error');return;}
+  localStorage.setItem(PWD_KEY,np);
+  document.getElementById('new-pwd').value='';document.getElementById('confirm-pwd').value='';
+  showAlert('settings-alert','Mot de passe changé.','success');
+}
+
+function resetAll(){
+  if(!confirm('Supprimer toutes les données ?'))return;
+  if(!confirm('Dernière confirmation — action irréversible.'))return;
+  localStorage.removeItem(KEY);render();
+  showAlert('settings-alert','Données réinitialisées.','success');
+}
+
+if(sessionStorage.getItem('fhc-auth')==='1'){
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-panel').style.display='block';
+  document.getElementById('modal-title').textContent='Panneau Admin';
+}
+
+document.getElementById('s-date').valueAsDate=new Date();
 render();
-setInterval(render, 5000);
+setInterval(renderPublic,5000);
 </script>
 </body>
 </html>
