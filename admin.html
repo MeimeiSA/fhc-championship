@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHC Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-dim:#8a6a2a;--red:#8B0000;--red-bright:#cc3333;
+  --dark:#0a0a0a;--surface:#111;--surface2:#181818;
+  --border:#2a2a2a;--border-gold:rgba(201,168,76,0.3);
+  --text:#d0c4a8;--text-dim:#666;--text-muted:#444;
+  --success-bg:#1a3a1a;--success:#4a8a4a;
+  --danger-bg:#3a0000;--danger:#cc4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:999}
+.login-box{background:var(--surface);border:1px solid var(--border-gold);border-radius:8px;padding:2.5rem;width:100%;max-width:380px;text-align:center}
+.login-logo{font-family:'Cinzel',serif;font-size:32px;font-weight:700;color:var(--gold);letter-spacing:4px;margin-bottom:.25rem}
+.login-sub{font-size:11px;color:var(--text-muted);letter-spacing:3px;margin-bottom:2rem}
+.login-box input{background:var(--surface2);border:0.5px solid var(--border);color:var(--text);border-radius:4px;padding:10px 14px;font-family:'Rajdhani',sans-serif;font-size:14px;width:100%;outline:none;text-align:center;letter-spacing:3px;margin-bottom:1rem;transition:border-color .2s}
+.login-box input:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--gold);color:#0a0a0a;border:none;border-radius:4px;padding:10px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.login-btn:hover{background:#dbb85c}
+.login-error{font-size:12px;color:var(--danger);margin-top:.75rem;letter-spacing:1px;min-height:20px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border-gold);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:58px}
+.nav-logo{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:3px}
+.nav-logo span{color:var(--red-bright);font-size:10px;display:block;letter-spacing:2px;font-weight:400}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-save{font-size:11px;color:var(--text-muted);letter-spacing:1px;transition:color .3s}
+.nav-save.saved{color:var(--success)}
+.logout-btn{font-size:11px;color:var(--text-muted);cursor:pointer;letter-spacing:1px;padding:4px 10px;border:0.5px solid var(--border);border-radius:3px;transition:all .2s}
+.logout-btn:hover{border-color:var(--red);color:var(--danger)}
+
+/* LAYOUT */
+#app{display:none}
+.container{margin-top:58px;padding:2rem;max-width:960px;margin-left:auto;margin-right:auto}
+
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.tab{padding:10px 20px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;color:var(--text-dim);transition:all .2s;font-weight:500}
+.tab:hover{color:var(--text)}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+.page{display:none}.page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:1rem 1.25rem}
+.stat-label{font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.stat-value{font-size:28px;font-weight:600;color:var(--gold);font-family:'Cinzel',serif}
+
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:1rem}
+.card-header{padding:.75rem 1.25rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:600}
+.card-body{padding:1.25rem}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:2px;color:var(--text-dim);border-bottom:1px solid var(--border);font-weight:500;background:var(--surface2);text-transform:uppercase}
+td{padding:11px 14px;border-bottom:0.5px solid #161616;color:#aaa}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.015)}
+.rank{font-family:'Cinzel',serif;font-weight:600;font-size:13px}
+.r1{color:var(--gold)}.r2{color:#aaa}.r3{color:#7a5a2a}
+.pts{color:var(--gold);font-weight:600;font-family:'Cinzel',serif}
+.team-name{color:#ccc;font-weight:500}
+.badge-playoff{display:inline-block;background:#1a1000;color:var(--gold-dim);border:0.5px solid var(--gold-dim);font-size:9px;padding:2px 8px;border-radius:3px;letter-spacing:2px;text-transform:uppercase}
+
+.form-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:.75rem}
+.form-group{display:flex;flex-direction:column;gap:5px;flex:1;min-width:120px}
+.form-group label{font-size:11px;color:var(--text-dim);letter-spacing:1px;font-weight:500;text-transform:uppercase}
+input[type=text],input[type=date],input[type=password],select{background:var(--surface2);border:0.5px solid var(--border);color:var(--text);border-radius:4px;padding:8px 12px;font-family:'Rajdhani',sans-serif;font-size:13px;width:100%;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:var(--gold)}
+select option{background:var(--surface2)}
+
+.btn{font-size:12px;padding:8px 18px;cursor:pointer;border-radius:4px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.btn-primary{background:var(--gold);color:#0a0a0a;border:none}.btn-primary:hover{background:#dbb85c}
+.btn-secondary{background:transparent;border:0.5px solid var(--border);color:var(--text-dim)}.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.btn-danger{background:transparent;border:0.5px solid var(--border);color:var(--danger)}.btn-danger:hover{background:var(--danger-bg);border-color:var(--red)}
+.btn-sm{padding:4px 10px;font-size:10px}
+
+.alert{border-radius:4px;padding:.6rem 1rem;font-size:12px;margin-bottom:1rem;letter-spacing:.5px}
+.alert-success{background:var(--success-bg);border:0.5px solid #2a4a2a;color:var(--success)}
+.alert-error{background:var(--danger-bg);border:0.5px solid var(--red);color:var(--danger)}
+
+.empty{text-align:center;padding:3rem;font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+.eq-card{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:.9rem 1.25rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;transition:border-color .2s}
+.eq-card:hover{border-color:var(--border-gold)}
+.eq-name{font-size:15px;font-weight:500}
+.eq-cap{font-size:12px;color:var(--text-dim);margin-top:2px}
+
+.week-label{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 .5rem;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
+.match-card{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:.75rem 1.25rem;margin-bottom:.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s}
+.match-card:hover{border-color:var(--border-gold)}
+.match-teams{flex:1;display:flex;align-items:center;gap:.75rem;font-size:14px}
+.match-eq{flex:1;font-weight:500}
+.match-eq.winner{color:var(--gold)}.match-eq.loser{color:var(--text-muted)}
+.match-score{font-size:18px;font-weight:600;font-family:'Cinzel',serif;min-width:50px;text-align:center}
+.match-meta{font-size:11px;color:var(--text-muted)}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-gold),transparent);margin:1.25rem 0}
+
+footer{text-align:center;padding:2rem;margin-top:2rem;border-top:1px solid var(--border)}
+footer .tagline{font-family:'Cinzel',serif;font-size:12px;color:var(--gold-dim);margin-bottom:.5rem}
+footer p{font-size:11px;color:#333;letter-spacing:2px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">FHC</div>
+    <div class="login-sub">Admin Panel — Season 0</div>
+    <input type="password" id="pwd-input" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Accéder</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <nav>
+    <div class="nav-logo">FHC Admin<span>For Honor Championship — Season 0</span></div>
+    <div class="nav-right">
+      <div class="nav-save" id="save-status"></div>
+      <div class="logout-btn" onclick="logout()">Déconnexion</div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('classement',this)">Classement</div>
+      <div class="tab" onclick="switchTab('resultats',this)">Résultats</div>
+      <div class="tab" onclick="switchTab('equipes',this)">Équipes</div>
+      <div class="tab" onclick="switchTab('saisie',this)">Saisir un match</div>
+      <div class="tab" onclick="switchTab('parametres',this)">Paramètres</div>
+    </div>
+
+    <!-- CLASSEMENT -->
+    <div id="classement" class="page active">
+      <div class="grid4">
+        <div class="stat"><div class="stat-label">Équipes</div><div class="stat-value" id="st-eq">0</div></div>
+        <div class="stat"><div class="stat-label">Matchs joués</div><div class="stat-value" id="st-matchs">0</div></div>
+        <div class="stat"><div class="stat-label">Match Week</div><div class="stat-value" id="st-week">—</div></div>
+        <div class="stat"><div class="stat-label">Qualifiés</div><div class="stat-value" id="st-qual">0/4</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Classement général</div></div>
+        <table>
+          <thead><tr><th>#</th><th>Équipe</th><th>J</th><th>V</th><th>D</th><th>MW</th><th>ML</th><th>Diff.</th><th>Pts</th><th></th></tr></thead>
+          <tbody id="cl-body"></tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px">Victoire : 3 pts · Défaite : 0 pt · Top 4 → Playoffs</div>
+    </div>
+
+    <!-- RÉSULTATS -->
+    <div id="resultats" class="page">
+      <div id="res-list"></div>
+    </div>
+
+    <!-- ÉQUIPES -->
+    <div id="equipes" class="page">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Ajouter une équipe</div><div style="font-size:11px;color:var(--text-dim)" id="eq-count">0 / 8</div></div>
+        <div class="card-body">
+          <div id="eq-alert"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Nom de l'équipe</label><input type="text" id="eq-nom" placeholder="Ex: Team Apex" maxlength="30"></div>
+            <div class="form-group"><label>Capitaine</label><input type="text" id="eq-cap" placeholder="Pseudo" maxlength="30"></div>
+            <button class="btn btn-primary" onclick="ajouterEquipe()">Ajouter</button>
+          </div>
+        </div>
+      </div>
+      <div id="eq-list"></div>
+    </div>
+
+    <!-- SAISIE -->
+    <div id="saisie" class="page">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Enregistrer un résultat</div></div>
+        <div class="card-body">
+          <div id="saisie-alert"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Match Week</label>
+              <select id="s-week">
+                <option value="1">Match Week 1</option><option value="2">Match Week 2</option>
+                <option value="3">Match Week 3</option><option value="4">Match Week 4</option>
+                <option value="5">Match Week 5</option><option value="6">Match Week 6</option>
+                <option value="7">Match Week 7</option><option value="SF">Demi-finale</option>
+                <option value="F">Finale</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Date</label><input type="date" id="s-date"></div>
+          </div>
+          <div class="divider"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Équipe 1</label><select id="s-eq1"></select></div>
+            <div class="form-group" style="max-width:100px"><label>Manches gagnées</label>
+              <select id="s-score1"><option>0</option><option>1</option><option selected>2</option></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Équipe 2</label><select id="s-eq2"></select></div>
+            <div class="form-group" style="max-width:100px"><label>Manches gagnées</label>
+              <select id="s-score2"><option selected>0</option><option>1</option><option>2</option></select>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Map (manche 1)</label>
+              <select id="s-map">
+                <option>Citadel Gate</option><option>Harbor</option><option>Temple Garden</option>
+                <option>The Shard</option><option>Forge</option><option>River Fort</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Notes (optionnel)</label><input type="text" id="s-notes" placeholder="Forfait, incident..."></div>
+          </div>
+          <div class="form-row">
+            <button class="btn btn-primary" onclick="enregistrerMatch()">Enregistrer le match</button>
+            <button class="btn btn-secondary" onclick="resetSaisie()">Réinitialiser</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARAMÈTRES -->
+    <div id="parametres" class="page">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Changer le mot de passe</div></div>
+        <div class="card-body">
+          <div id="pwd-alert"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Nouveau mot de passe</label><input type="password" id="new-pwd" placeholder="Nouveau mot de passe"></div>
+            <div class="form-group"><label>Confirmer</label><input type="password" id="confirm-pwd" placeholder="Confirmer"></div>
+            <button class="btn btn-primary" onclick="changerMdp()">Changer</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Danger zone</div></div>
+        <div class="card-body">
+          <div style="font-size:13px;color:var(--text-dim);margin-bottom:1rem">Réinitialiser toutes les données de la saison. Cette action est irréversible.</div>
+          <button class="btn btn-danger" onclick="resetAll()">Réinitialiser toutes les données</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer style="display:none" id="footer">
+  <div class="tagline">"Easy to enter. Hard to master."</div>
+  <p>FHC — For Honor Championship · Season 0 · Panneau Admin</p>
+</footer>
+
+<script>
+const KEY = 'fhc-data-v1';
+const PWD_KEY = 'fhc-admin-pwd';
+const DEFAULT_PWD = 'FHC2025';
+
+function getState(){ try{ const d=localStorage.getItem(KEY); return d?JSON.parse(d):{equipes:[],matchs:[]}; }catch(e){ return {equipes:[],matchs:[]}; } }
+function setState(s){ localStorage.setItem(KEY,JSON.stringify(s)); showSaved(); }
+function getPwd(){ return localStorage.getItem(PWD_KEY)||DEFAULT_PWD; }
+
+function tryLogin(){
+  const val = document.getElementById('pwd-input').value;
+  if(val === getPwd()){
+    sessionStorage.setItem('fhc-auth','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('footer').style.display='block';
+    render();
+  } else {
+    const err = document.getElementById('login-error');
+    err.textContent = 'Mot de passe incorrect.';
+    document.getElementById('pwd-input').value='';
+    setTimeout(()=>err.textContent='',3000);
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem('fhc-auth');
+  location.reload();
+}
+
+function showSaved(){
+  const el=document.getElementById('save-status');
+  el.textContent='✓ Sauvegardé';el.classList.add('saved');
+  setTimeout(()=>{el.textContent='';el.classList.remove('saved');},2000);
+}
+
+function calcClassement(state){
+  const stats={};
+  state.equipes.forEach(eq=>{stats[eq.nom]={nom:eq.nom,j:0,v:0,d:0,mw:0,ml:0,pts:0};});
+  state.matchs.forEach(m=>{
+    if(!stats[m.eq1]||!stats[m.eq2]) return;
+    const s1=parseInt(m.score1),s2=parseInt(m.score2);
+    stats[m.eq1].j++;stats[m.eq2].j++;
+    stats[m.eq1].mw+=s1;stats[m.eq1].ml+=s2;
+    stats[m.eq2].mw+=s2;stats[m.eq2].ml+=s1;
+    if(s1>s2){stats[m.eq1].v++;stats[m.eq1].pts+=3;stats[m.eq2].d++;}
+    else if(s2>s1){stats[m.eq2].v++;stats[m.eq2].pts+=3;stats[m.eq1].d++;}
+  });
+  return Object.values(stats).sort((a,b)=>b.pts-a.pts||((b.mw-b.ml)-(a.mw-a.ml))||b.v-a.v);
+}
+
+function render(){
+  const state=getState();
+  const cl=calcClassement(state);
+  const regMatchs=state.matchs.filter(m=>!['SF','F'].includes(m.week));
+  const weeks=[...new Set(regMatchs.map(m=>m.week))];
+  const curWeek=weeks.length>0?Math.max(...weeks.map(Number)):0;
+
+  document.getElementById('st-eq').textContent=state.equipes.length;
+  document.getElementById('st-matchs').textContent=regMatchs.length;
+  document.getElementById('st-week').textContent=curWeek||'—';
+  document.getElementById('st-qual').textContent=Math.min(cl.filter((_,i)=>i<4).length,state.equipes.length)+'/4';
+  document.getElementById('eq-count').textContent=state.equipes.length+' / 8';
+
+  const tbody=document.getElementById('cl-body');
+  if(cl.length===0){
+    tbody.innerHTML='<tr><td colspan="10" class="empty">Ajoutez des équipes dans l\'onglet Équipes.</td></tr>';
+  } else {
+    tbody.innerHTML=cl.map((e,i)=>{
+      const rc=i===0?'r1':i===1?'r2':i<4?'r3':'';
+      const diff=e.mw-e.ml;
+      const po=i<4?'<span class="badge-playoff">Playoff</span>':'';
+      return `<tr><td><span class="rank ${rc}">${i+1}</span></td><td class="team-name">${e.nom}</td><td style="color:var(--text-dim)">${e.j}</td><td>${e.v}</td><td style="color:var(--text-dim)">${e.d}</td><td>${e.mw}</td><td style="color:var(--text-dim)">${e.ml}</td><td style="color:${diff>0?'#4a8a4a':diff<0?'#8a4a4a':'var(--text-dim)'}">${diff>0?'+'+diff:diff}</td><td class="pts">${e.pts}</td><td>${po}</td></tr>`;
+    }).join('');
+  }
+
+  const eqList=document.getElementById('eq-list');
+  if(state.equipes.length===0){
+    eqList.innerHTML='<div class="empty">Aucune équipe. Commencez par en ajouter une.</div>';
+  } else {
+    eqList.innerHTML=state.equipes.map((eq,i)=>`
+      <div class="eq-card">
+        <div><div class="eq-name">${eq.nom}</div><div class="eq-cap">Capitaine : ${eq.cap||'—'}</div></div>
+        <button class="btn btn-danger btn-sm" onclick="supprimerEquipe(${i})">Retirer</button>
+      </div>`).join('');
+  }
+
+  ['s-eq1','s-eq2'].forEach(id=>{
+    const sel=document.getElementById(id);const val=sel.value;
+    sel.innerHTML=state.equipes.length===0?'<option value="">— Aucune équipe —</option>':state.equipes.map(e=>`<option value="${e.nom}">${e.nom}</option>`).join('');
+    if(val) sel.value=val;
+  });
+
+  const rList=document.getElementById('res-list');
+  if(state.matchs.length===0){
+    rList.innerHTML='<div class="empty">Aucun match enregistré.</div>';
+  } else {
+    const byWeek={};
+    state.matchs.forEach(m=>{(byWeek[m.week]=byWeek[m.week]||[]).push(m);});
+    const wLabel=w=>w==='SF'?'Demi-finales':w==='F'?'Finale':'Match Week '+w;
+    rList.innerHTML=Object.entries(byWeek).sort((a,b)=>{
+      const o=['1','2','3','4','5','6','7','SF','F'];return o.indexOf(a[0])-o.indexOf(b[0]);
+    }).map(([w,ms])=>`
+      <div class="week-label">${wLabel(w)}</div>
+      ${ms.map(m=>{
+        const s1=parseInt(m.score1),s2=parseInt(m.score2);
+        return `<div class="match-card">
+          <div class="match-teams">
+            <div class="match-eq ${s1>s2?'winner':'loser'}">${m.eq1}</div>
+            <div class="match-score">${m.score1} — ${m.score2}</div>
+            <div class="match-eq ${s2>s1?'winner':'loser'}">${m.eq2}</div>
+          </div>
+          <div class="match-meta">${m.map||''} ${m.date?'· '+m.date:''} ${m.notes?'· '+m.notes:''}</div>
+          <button class="btn btn-danger btn-sm" onclick="supprimerMatch('${m.id}')">Supprimer</button>
+        </div>`;
+      }).join('')}`).join('');
+  }
+}
+
+function switchTab(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+}
+
+function showAlert(id,msg,type='success'){
+  const el=document.getElementById(id);
+  el.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;
+  if(type==='success') setTimeout(()=>el.innerHTML='',3000);
+}
+
+function ajouterEquipe(){
+  const nom=document.getElementById('eq-nom').value.trim();
+  const cap=document.getElementById('eq-cap').value.trim();
+  if(!nom){showAlert('eq-alert','Entrez un nom d\'équipe.','error');return;}
+  const state=getState();
+  if(state.equipes.length>=8){showAlert('eq-alert','Maximum 8 équipes atteint.','error');return;}
+  if(state.equipes.find(e=>e.nom.toLowerCase()===nom.toLowerCase())){showAlert('eq-alert','Cette équipe existe déjà.','error');return;}
+  state.equipes.push({nom,cap});
+  document.getElementById('eq-nom').value='';document.getElementById('eq-cap').value='';
+  showAlert('eq-alert',`Équipe "${nom}" ajoutée.`,'success');
+  setState(state);render();
+}
+
+function supprimerEquipe(i){
+  if(!confirm('Retirer cette équipe ?')) return;
+  const state=getState();state.equipes.splice(i,1);setState(state);render();
+}
+
+function enregistrerMatch(){
+  const eq1=document.getElementById('s-eq1').value;
+  const eq2=document.getElementById('s-eq2').value;
+  const score1=document.getElementById('s-score1').value;
+  const score2=document.getElementById('s-score2').value;
+  const week=document.getElementById('s-week').value;
+  const map=document.getElementById('s-map').value;
+  const date=document.getElementById('s-date').value;
+  const notes=document.getElementById('s-notes').value.trim();
+  if(!eq1||!eq2){showAlert('saisie-alert','Sélectionnez les deux équipes.','error');return;}
+  if(eq1===eq2){showAlert('saisie-alert','Les deux équipes doivent être différentes.','error');return;}
+  if(parseInt(score1)===parseInt(score2)){showAlert('saisie-alert','Score nul impossible.','error');return;}
+  const winner=parseInt(score1)>parseInt(score2)?eq1:eq2;
+  const state=getState();
+  state.matchs.push({id:Date.now()+'',eq1,eq2,score1,score2,week,map,date,notes});
+  showAlert('saisie-alert',`Match enregistré. Vainqueur : ${winner}.`,'success');
+  setState(state);render();
+}
+
+function supprimerMatch(id){
+  if(!confirm('Supprimer ce match ?')) return;
+  const state=getState();state.matchs=state.matchs.filter(m=>m.id!==id);setState(state);render();
+}
+
+function resetSaisie(){
+  document.getElementById('s-notes').value='';
+  document.getElementById('saisie-alert').innerHTML='';
+}
+
+function changerMdp(){
+  const np=document.getElementById('new-pwd').value;
+  const cp=document.getElementById('confirm-pwd').value;
+  if(!np){showAlert('pwd-alert','Entrez un nouveau mot de passe.','error');return;}
+  if(np!==cp){showAlert('pwd-alert','Les mots de passe ne correspondent pas.','error');return;}
+  if(np.length<4){showAlert('pwd-alert','Mot de passe trop court (4 caractères minimum).','error');return;}
+  localStorage.setItem(PWD_KEY,np);
+  document.getElementById('new-pwd').value='';document.getElementById('confirm-pwd').value='';
+  showAlert('pwd-alert','Mot de passe changé avec succès.','success');
+}
+
+function resetAll(){
+  if(!confirm('Réinitialiser TOUTES les données ? Cette action est irréversible.')) return;
+  if(!confirm('Dernière confirmation — toutes les équipes et résultats seront supprimés.')) return;
+  localStorage.removeItem(KEY);render();
+  showAlert('pwd-alert','Données réinitialisées.','success');
+}
+
+// Auto-check auth
+if(sessionStorage.getItem('fhc-auth')==='1'){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('footer').style.display='block';
+  render();
+}
+
+document.getElementById('s-date').valueAsDate=new Date();
+</script>
+</body>
+</html>
