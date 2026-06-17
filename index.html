@@ -248,16 +248,11 @@ window.addEventListener('storage',()=>render());
 render();
 setInterval(render, 5000);
 
-let clickCount=0;let clickTimer=null;
-function handleLogoClick(){
-  clickCount++;
-  if(clickTimer) clearTimeout(clickTimer);
-  clickTimer=setTimeout(()=>clickCount=0,600);
-  if(clickCount>=3){
-    clickCount=0;
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey && e.shiftKey && e.key==='A'){
     window.location.href='admin.html';
   }
-}
+});
 </script>
 </body>
 </html>
