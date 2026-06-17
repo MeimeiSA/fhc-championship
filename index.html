@@ -4,239 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FHC — For Honor Championship</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#C9A84C;
-  --gold-dim:#8a6a2a;
-  --red:#8B0000;
-  --red-bright:#cc3333;
-  --dark:#0a0a0a;
-  --surface:#111111;
-  --surface2:#181818;
-  --border:#222;
-  --border-gold:rgba(201,168,76,0.3);
-  --text:#d0c4a8;
-  --text-dim:#666;
+  --gold:#C9A84C;--gold-dim:#8a6a2a;--red:#8B0000;--red-bright:#cc3333;
+  --dark:#0a0a0a;--surface:#111;--surface2:#181818;
+  --border:#2a2a2a;--border-gold:rgba(201,168,76,0.3);
+  --text:#d0c4a8;--text-dim:#666;--text-muted:#444;
 }
 html{scroll-behavior:smooth}
-body{
-  font-family:'Rajdhani',sans-serif;
-  background:var(--dark);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-}
+body{font-family:'Rajdhani',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:#0a0a0a}
-::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border-gold);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
+.nav-logo{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:4px}
+.nav-logo span{color:var(--red-bright);font-size:10px;display:block;letter-spacing:3px;font-weight:400;margin-top:-2px}
+.nav-links{display:flex}
+.nav-link{padding:0 1.2rem;height:60px;display:flex;align-items:center;font-size:12px;letter-spacing:2px;font-weight:500;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase}
+.nav-link:hover{color:var(--text)}.nav-link.active{color:var(--gold);border-bottom-color:var(--gold)}
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(10,10,10,0.95);
-  border-bottom:1px solid var(--border-gold);
-  backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2.5rem;height:60px;
-}
-.nav-logo{
-  font-family:'Cinzel',serif;
-  font-size:18px;font-weight:700;
-  color:var(--gold);letter-spacing:4px;
-}
-.nav-logo span{color:var(--red-bright);font-size:11px;display:block;letter-spacing:3px;font-weight:400;margin-top:-2px}
-.nav-links{display:flex;gap:0}
-.nav-link{
-  padding:0 1.2rem;height:60px;
-  display:flex;align-items:center;
-  font-size:12px;letter-spacing:2px;font-weight:500;
-  color:var(--text-dim);cursor:pointer;
-  border-bottom:2px solid transparent;
-  transition:all .2s;text-transform:uppercase;
-}
-.nav-link:hover{color:var(--text)}
-.nav-link.active{color:var(--gold);border-bottom-color:var(--gold)}
-
-/* ── HERO ── */
-.hero{
-  margin-top:60px;
-  padding:5rem 2.5rem 4rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  border-bottom:1px solid var(--border);
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(139,0,0,0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 30% at 50% 100%, rgba(201,168,76,0.06) 0%, transparent 70%);
-}
-.hero-eyebrow{
-  font-size:11px;letter-spacing:5px;color:var(--red-bright);
-  text-transform:uppercase;margin-bottom:1.5rem;
-}
-.hero-title{
-  font-family:'Cinzel',serif;
-  font-size:clamp(40px,8vw,80px);font-weight:700;
-  color:var(--gold);letter-spacing:6px;
-  line-height:1;margin-bottom:.5rem;
-  position:relative;
-}
-.hero-subtitle{
-  font-family:'Cinzel',serif;
-  font-size:clamp(12px,2vw,16px);
-  color:var(--text-dim);letter-spacing:6px;
-  margin-bottom:2rem;font-weight:400;
-}
-.hero-divider{
-  width:120px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  margin:0 auto 2rem;
-}
-.hero-meta{
-  display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;
-}
-.hero-meta-item{
-  font-size:12px;letter-spacing:2px;color:var(--text-dim);
-  display:flex;align-items:center;gap:8px;
-}
+.hero{margin-top:60px;padding:5rem 2.5rem 4rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(139,0,0,0.12) 0%,transparent 70%)}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(40px,8vw,80px);font-weight:700;color:var(--gold);letter-spacing:6px;line-height:1;margin-bottom:.5rem;position:relative}
+.hero-subtitle{font-family:'Cinzel',serif;font-size:clamp(12px,2vw,16px);color:var(--text-dim);letter-spacing:6px;margin-bottom:2rem;font-weight:400}
+.hero-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 2rem}
+.hero-meta{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.hero-meta-item{font-size:12px;letter-spacing:2px;color:var(--text-dim);display:flex;align-items:center;gap:8px}
 .hero-meta-item::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:#1a0000;border:1px solid var(--red);
-  color:var(--red-bright);font-size:11px;letter-spacing:3px;
-  padding:6px 18px;border-radius:2px;margin-top:2rem;
-  text-transform:uppercase;animation:pulse 2s infinite;
-}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#1a0000;border:1px solid var(--red);color:var(--red-bright);font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-top:2rem;text-transform:uppercase;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{border-color:var(--red);box-shadow:0 0 0 0 rgba(139,0,0,0)}50%{border-color:#cc3333;box-shadow:0 0 12px rgba(139,0,0,0.3)}}
 
-/* ── PAGES ── */
-.page{display:none;padding:2.5rem;max-width:900px;margin:0 auto}
-.page.active{display:block;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.container{padding:2.5rem;max-width:900px;margin:0 auto}
+.page{display:none}.page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-.section-title{
-  font-family:'Cinzel',serif;
-  font-size:12px;letter-spacing:4px;color:var(--gold);
-  margin-bottom:1.5rem;padding-bottom:10px;
-  border-bottom:1px solid var(--border-gold);
-  text-transform:uppercase;
-}
+.section-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:1.5rem;padding-bottom:10px;border-bottom:1px solid var(--border-gold);text-transform:uppercase}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.5rem}
 
-/* ── TABLE ── */
-.card{
-  background:var(--surface);
-  border:0.5px solid var(--border);
-  border-radius:4px;overflow:hidden;
-  margin-bottom:1.5rem;
-}
 table{width:100%;border-collapse:collapse;font-size:14px}
-th{
-  padding:10px 14px;
-  font-size:10px;letter-spacing:2px;color:var(--text-dim);
-  border-bottom:1px solid var(--border);font-weight:500;
-  background:var(--surface2);text-transform:uppercase;text-align:left;
-}
-td{padding:11px 14px;border-bottom:0.5px solid #161616;color:#aaa;font-size:14px}
+th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:2px;color:var(--text-dim);border-bottom:1px solid var(--border);font-weight:500;background:var(--surface2);text-transform:uppercase}
+td{padding:11px 14px;border-bottom:0.5px solid #161616;color:#aaa}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,0.02)}
+tr:hover td{background:rgba(255,255,255,0.015)}
 .rank{font-family:'Cinzel',serif;font-weight:600;font-size:13px}
-.r1{color:var(--gold)}
-.r2{color:#aaa}
-.r3{color:#7a5a2a}
+.r1{color:var(--gold)}.r2{color:#aaa}.r3{color:#7a5a2a}
 .pts{color:var(--gold);font-weight:600;font-family:'Cinzel',serif}
-.playoff-badge{
-  background:#1a1000;border:0.5px solid var(--gold-dim);
-  color:var(--gold-dim);font-size:9px;padding:2px 8px;
-  border-radius:2px;letter-spacing:2px;text-transform:uppercase;
-}
 .team-name{color:#ccc;font-weight:500}
+.badge-playoff{display:inline-block;background:#1a1000;color:var(--gold-dim);border:0.5px solid var(--gold-dim);font-size:9px;padding:2px 8px;border-radius:3px;letter-spacing:2px;text-transform:uppercase}
 
-/* ── RÉSULTATS ── */
-.empty-state{
-  text-align:center;padding:4rem 2rem;
-  font-size:13px;color:var(--text-dim);letter-spacing:1px;line-height:2;
-}
-.empty-state span{display:block;font-size:32px;margin-bottom:1rem;opacity:.3}
+.empty{text-align:center;padding:3rem;font-size:13px;color:var(--text-muted);letter-spacing:1px;line-height:2}
 
-/* ── CALENDRIER ── */
 .cal-grid{display:grid;gap:6px}
-.cal-item{
-  background:var(--surface);border:0.5px solid var(--border);
-  border-radius:4px;padding:.9rem 1.25rem;
-  display:flex;align-items:center;gap:1.5rem;
-  transition:border-color .2s;
-}
+.cal-item{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:.9rem 1.25rem;display:flex;align-items:center;gap:1.5rem;transition:border-color .2s}
 .cal-item:hover{border-color:var(--border-gold)}
 .cal-item.special{border-color:rgba(139,0,0,0.4);background:#0d0505}
 .cal-item.current{border-color:rgba(201,168,76,0.4);background:#0d0d05}
-.cal-week{
-  font-family:'Cinzel',serif;
-  font-size:10px;letter-spacing:2px;color:var(--gold);
-  min-width:110px;font-weight:600;text-transform:uppercase;
-}
+.cal-week{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--gold);min-width:120px;font-weight:600;text-transform:uppercase}
 .cal-item.special .cal-week{color:var(--red-bright)}
-.cal-dates{font-size:13px;color:#888;flex:1;letter-spacing:.5px}
-.cal-status{
-  font-size:9px;padding:3px 10px;border-radius:2px;
-  letter-spacing:2px;text-transform:uppercase;font-weight:500;
-}
+.cal-dates{font-size:13px;color:#888;flex:1}
+.cal-status{font-size:9px;padding:3px 10px;border-radius:2px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
 .s-upcoming{background:#0d1a0d;color:#4a8a4a;border:0.5px solid #1a3a1a}
 .s-current{background:#1a1400;color:var(--gold);border:0.5px solid #3a2a00}
 .s-done{background:#111;color:#333;border:0.5px solid #1a1a1a}
 
-/* ── RÈGLEMENT ── */
-.reg-grid{display:grid;gap:1rem}
-.reg-card{
-  background:var(--surface);border:0.5px solid var(--border);
-  border-radius:4px;padding:1.25rem;
-  border-left:2px solid var(--gold-dim);
-  transition:border-color .2s;
-}
+.week-label{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 .5rem;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
+.match-card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:.75rem 1.25rem;margin-bottom:.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.match-teams{flex:1;display:flex;align-items:center;gap:.75rem;font-size:14px}
+.match-eq{flex:1;font-weight:500}
+.match-eq.winner{color:var(--gold)}
+.match-eq.loser{color:var(--text-muted)}
+.match-score{font-size:18px;font-weight:600;font-family:'Cinzel',serif;color:var(--text);min-width:50px;text-align:center}
+.match-meta{font-size:11px;color:var(--text-muted)}
+
+.reg-card{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:1.25rem;margin-bottom:1rem;border-left:2px solid var(--gold-dim);transition:border-color .2s}
 .reg-card:hover{border-left-color:var(--gold)}
-.reg-card-title{
-  font-family:'Cinzel',serif;
-  font-size:13px;color:var(--gold);
-  margin-bottom:.75rem;letter-spacing:1px;
-}
+.reg-card-title{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:.75rem;letter-spacing:1px}
 .reg-card-body{font-size:13px;color:#777;line-height:1.8}
 .reg-card-body ul{padding-left:1.25rem}
 .reg-card-body li{margin:.2rem 0}
 .reg-card-body strong{color:#aaa;font-weight:500}
 
-.discord-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  background:#1a0000;border:1px solid var(--red);
-  color:var(--red-bright);font-size:12px;letter-spacing:2px;
-  padding:10px 24px;border-radius:2px;cursor:pointer;
-  margin-top:1.5rem;transition:all .2s;text-transform:uppercase;
-  text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:500;
-}
-.discord-btn:hover{background:#2a0000;border-color:var(--red-bright);color:#ff5555}
+.discord-btn{display:inline-flex;align-items:center;gap:10px;background:#1a0000;border:1px solid var(--red);color:var(--red-bright);font-size:12px;letter-spacing:2px;padding:10px 24px;border-radius:2px;cursor:pointer;margin-top:1.5rem;transition:all .2s;text-transform:uppercase;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:500}
+.discord-btn:hover{background:#2a0000;border-color:var(--red-bright)}
 
-/* ── FOOTER ── */
-footer{
-  margin-top:4rem;padding:2rem 2.5rem;
-  border-top:1px solid var(--border);
-  text-align:center;
-}
+footer{margin-top:4rem;padding:2rem 2.5rem;border-top:1px solid var(--border);text-align:center}
+footer .tagline{font-family:'Cinzel',serif;color:var(--gold-dim);font-size:12px;margin-bottom:.5rem}
 footer p{font-size:11px;color:#333;letter-spacing:2px}
-footer .tagline{color:var(--gold-dim);font-family:'Cinzel',serif;font-size:12px;margin-bottom:.5rem}
 </style>
 </head>
 <body>
-
 <nav>
-  <div class="nav-logo">
-    FHC
-    <span>For Honor Championship</span>
-  </div>
+  <div class="nav-logo">FHC<span>For Honor Championship</span></div>
   <div class="nav-links">
     <div class="nav-link active" onclick="show('classement',this)">Classement</div>
     <div class="nav-link" onclick="show('resultats',this)">Résultats</div>
@@ -246,7 +105,7 @@ footer .tagline{color:var(--gold-dim);font-family:'Cinzel',serif;font-size:12px;
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">Season 0 — Europe</div>
+  <div style="font-size:11px;letter-spacing:5px;color:var(--red-bright);margin-bottom:1.5rem;text-transform:uppercase">Season 0 — Europe</div>
   <div class="hero-title">FHC</div>
   <div class="hero-subtitle">For Honor Championship</div>
   <div class="hero-divider"></div>
@@ -259,198 +118,52 @@ footer .tagline{color:var(--gold-dim);font-family:'Cinzel',serif;font-size:12px;
   <div><div class="hero-badge">● Inscriptions ouvertes</div></div>
 </div>
 
-<!-- CLASSEMENT -->
-<div id="classement" class="page active">
-  <div class="section-title">Classement — Saison régulière</div>
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Équipe</th>
-          <th>J</th>
-          <th>V</th>
-          <th>D</th>
-          <th>Diff.</th>
-          <th>Pts</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="classement-body">
-        <tr><td class="rank r1">1</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td><span class="playoff-badge">Playoff</span></td></tr>
-        <tr><td class="rank r2">2</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td><span class="playoff-badge">Playoff</span></td></tr>
-        <tr><td class="rank r3">3</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td><span class="playoff-badge">Playoff</span></td></tr>
-        <tr><td class="rank r3">4</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td><span class="playoff-badge">Playoff</span></td></tr>
-        <tr><td class="rank">5</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td></td></tr>
-        <tr><td class="rank">6</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td></td></tr>
-        <tr><td class="rank">7</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td></td></tr>
-        <tr><td class="rank">8</td><td class="team-name">—</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts">0</td><td></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="font-size:11px;color:#333;letter-spacing:1px">Victoire : 3 pts · Défaite : 0 pt · Top 4 qualifiés en playoffs</div>
-</div>
+<div class="container">
 
-<!-- RÉSULTATS -->
-<div id="resultats" class="page">
-  <div class="section-title">Résultats des matchs</div>
-  <div class="empty-state">
-    <span>⚔</span>
-    Aucun match joué pour le moment.<br>
-    La saison régulière débute le 7 juillet 2025.
-  </div>
-</div>
-
-<!-- CALENDRIER -->
-<div id="calendrier" class="page">
-  <div class="section-title">Calendrier — Season 0</div>
-  <div class="cal-grid">
-    <div class="cal-item current">
-      <div class="cal-week">Inscriptions</div>
-      <div class="cal-dates">16 juin → 30 juin 2025</div>
-      <div class="cal-status s-current">En cours</div>
+  <div id="classement" class="page active">
+    <div class="section-title">Classement — Saison régulière</div>
+    <div class="card">
+      <table>
+        <thead><tr><th>#</th><th>Équipe</th><th>J</th><th>V</th><th>D</th><th>Diff.</th><th>Pts</th><th></th></tr></thead>
+        <tbody id="cl-body"></tbody>
+      </table>
     </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 1</div>
-      <div class="cal-dates">7 → 13 juillet 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 2</div>
-      <div class="cal-dates">14 → 20 juillet 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 3</div>
-      <div class="cal-dates">21 → 27 juillet 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 4</div>
-      <div class="cal-dates">28 juil → 3 août 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 5</div>
-      <div class="cal-dates">4 → 10 août 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 6</div>
-      <div class="cal-dates">11 → 17 août 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item">
-      <div class="cal-week">Match Week 7</div>
-      <div class="cal-dates">18 → 24 août 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item special">
-      <div class="cal-week">Demi-finales</div>
-      <div class="cal-dates">25 → 31 août 2025 · 1er vs 4ème · 2ème vs 3ème</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-    <div class="cal-item special">
-      <div class="cal-week">Finale</div>
-      <div class="cal-dates">1 → 7 septembre 2025</div>
-      <div class="cal-status s-upcoming">À venir</div>
-    </div>
-  </div>
-</div>
-
-<!-- RÈGLEMENT -->
-<div id="reglement" class="page">
-  <div class="section-title">Règlement officiel — Season 0</div>
-  <div class="reg-grid">
-
-    <div class="reg-card">
-      <div class="reg-card-title">Format général</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>Mode <strong>Dominion 4v4</strong> · Région EU · Crossplay autorisé</li>
-          <li>8 équipes maximum par saison</li>
-          <li>Saison régulière <strong>(BO3)</strong> → Playoffs Top 4 <strong>(BO5)</strong> → Finale <strong>(BO5)</strong></li>
-          <li>Demi-finales : 1er vs 4ème · 2ème vs 3ème — aucun avantage au mieux classé</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Composition des équipes</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>4 joueurs titulaires + 1 remplaçant maximum</li>
-          <li>Un capitaine officiel par équipe</li>
-          <li>Aucune substitution en cours de BO</li>
-          <li>Roster lock : <strong>3 semaines avant le début de la saison</strong></li>
-          <li>Un joueur ne peut appartenir qu'à une seule équipe</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Ban system — Accumulating Bans Capped</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>+1 ban par équipe à chaque nouvelle manche</li>
-          <li>Les bans sont <strong>cumulatifs</strong> sur toute la durée du BO</li>
-          <li>Cap : <strong>3 bans maximum par équipe (6 au total)</strong></li>
-          <li>BO3 : cap atteint à la manche 3 · BO5 : cap atteint à la manche 3</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Hero rules & Blind Pick</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>Doublons interdits dans une même équipe</li>
-          <li>Blind pick après les bans — compositions révélées simultanément</li>
-          <li>Tout nouveau héros automatiquement banni jusqu'à la saison suivante</li>
-          <li><strong>Juren banni pour toute la Season 0</strong></li>
-          <li>Emergency Flex Rule : 1 par BO si plus aucun héros disponible</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Maps — Pool Season 0</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>Citadel Gate · Harbor · Temple Garden · The Shard · Forge · River Fort</li>
-          <li>Manche 1 : <strong>coin flip</strong> — l'équipe gagnante choisit la map</li>
-          <li>Manches suivantes : l'équipe <strong>perdante</strong> choisit la map</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Points & Tie-breaker</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>Victoire : <strong>3 pts</strong> · Défaite : 0 pt · No-show : 3 pts à l'équipe présente</li>
-          <li>Départage : Points → Diff. manches → Face-à-face → Décision admin</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-title">Organisation & Comportement</div>
-      <div class="reg-card-body">
-        <ul>
-          <li>Tolérance retard : <strong>20 minutes</strong> maximum</li>
-          <li>Déconnexion avant 5 min : rematch possible · Après 5 min : décision admin</li>
-          <li>Interdits : insultes, harcèlement, triche, stream sniping, emote spamming intentionnel</li>
-          <li>Les décisions administratives sont <strong>finales</strong></li>
-        </ul>
-      </div>
-    </div>
-
+    <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px">V=3pts · D=0pt · Top 4 qualifiés en playoffs</div>
   </div>
 
-  <a href="https://discord.gg/LIEN_ICI" class="discord-btn" target="_blank">
-    ⚔ Rejoindre le Discord FHC
-  </a>
+  <div id="resultats" class="page">
+    <div class="section-title">Résultats des matchs</div>
+    <div id="res-list"></div>
+  </div>
+
+  <div id="calendrier" class="page">
+    <div class="section-title">Calendrier — Season 0</div>
+    <div class="cal-grid">
+      <div class="cal-item current"><div class="cal-week">Inscriptions</div><div class="cal-dates">16 juin → 30 juin 2025</div><div class="cal-status s-current">En cours</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 1</div><div class="cal-dates">7 → 13 juillet 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 2</div><div class="cal-dates">14 → 20 juillet 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 3</div><div class="cal-dates">21 → 27 juillet 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 4</div><div class="cal-dates">28 juil → 3 août 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 5</div><div class="cal-dates">4 → 10 août 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 6</div><div class="cal-dates">11 → 17 août 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item"><div class="cal-week">Match Week 7</div><div class="cal-dates">18 → 24 août 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item special"><div class="cal-week">Demi-finales</div><div class="cal-dates">25 → 31 août 2025 · 1er vs 4ème · 2ème vs 3ème</div><div class="cal-status s-upcoming">À venir</div></div>
+      <div class="cal-item special"><div class="cal-week">Finale</div><div class="cal-dates">1 → 7 septembre 2025</div><div class="cal-status s-upcoming">À venir</div></div>
+    </div>
+  </div>
+
+  <div id="reglement" class="page">
+    <div class="section-title">Règlement officiel — Season 0</div>
+    <div class="reg-card"><div class="reg-card-title">Format général</div><div class="reg-card-body"><ul><li>Mode <strong>Dominion 4v4</strong> · Région EU · Crossplay autorisé · 8 équipes max</li><li>Saison régulière <strong>(BO3)</strong> → Playoffs Top 4 <strong>(BO5)</strong> → Finale <strong>(BO5)</strong></li><li>Demi-finales : 1er vs 4ème · 2ème vs 3ème — aucun avantage au mieux classé</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Composition des équipes</div><div class="reg-card-body"><ul><li>4 joueurs titulaires + 1 remplaçant maximum</li><li>Un capitaine officiel par équipe</li><li>Aucune substitution en cours de BO · Roster lock 3 semaines avant la saison</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Ban system — Accumulating Bans Capped</div><div class="reg-card-body"><ul><li>+1 ban par équipe à chaque manche · Cap : <strong>3 bans/équipe (6 au total)</strong></li><li>Les bans sont cumulatifs sur toute la durée du BO</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Hero rules & Blind Pick</div><div class="reg-card-body"><ul><li>Doublons interdits · Blind pick après les bans</li><li>Tout nouveau héros automatiquement banni jusqu'à la saison suivante</li><li><strong>Juren banni pour toute la Season 0</strong></li><li>Emergency Flex Rule : 1 par BO si plus aucun héros disponible</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Maps — Pool Season 0</div><div class="reg-card-body"><ul><li>Citadel Gate · Harbor · Temple Garden · The Shard · Forge · River Fort</li><li>Manche 1 : coin flip · Manches suivantes : choix de l'équipe perdante</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Points & Tie-breaker</div><div class="reg-card-body"><ul><li>Victoire : <strong>3 pts</strong> · Défaite : 0 pt · No-show : 3 pts à l'équipe présente</li><li>Départage : Points → Diff. manches → Face-à-face → Décision admin</li></ul></div></div>
+    <div class="reg-card"><div class="reg-card-title">Organisation & Comportement</div><div class="reg-card-body"><ul><li>Tolérance retard : <strong>20 minutes</strong> · Déco avant 5 min : rematch · Après : décision admin</li><li>Interdits : insultes, harcèlement, triche, stream sniping, emote spamming intentionnel</li><li>Les décisions administratives sont <strong>finales</strong></li></ul></div></div>
+    <a href="https://discord.gg/LIEN_ICI" class="discord-btn" target="_blank">⚔ Rejoindre le Discord FHC</a>
+  </div>
+
 </div>
 
 <footer>
@@ -459,13 +172,81 @@ footer .tagline{color:var(--gold-dim);font-family:'Cinzel',serif;font-size:12px;
 </footer>
 
 <script>
-function show(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+const KEY = 'fhc-data-v1';
+
+function loadState(){
+  try{ const d=localStorage.getItem(KEY); return d?JSON.parse(d):{equipes:[],matchs:[]}; }
+  catch(e){ return {equipes:[],matchs:[]}; }
+}
+
+function calcClassement(state){
+  const stats={};
+  state.equipes.forEach(eq=>{stats[eq.nom]={nom:eq.nom,j:0,v:0,d:0,mw:0,ml:0,pts:0};});
+  state.matchs.forEach(m=>{
+    if(!stats[m.eq1]||!stats[m.eq2]) return;
+    const s1=parseInt(m.score1),s2=parseInt(m.score2);
+    stats[m.eq1].j++;stats[m.eq2].j++;
+    stats[m.eq1].mw+=s1;stats[m.eq1].ml+=s2;
+    stats[m.eq2].mw+=s2;stats[m.eq2].ml+=s1;
+    if(s1>s2){stats[m.eq1].v++;stats[m.eq1].pts+=3;stats[m.eq2].d++;}
+    else if(s2>s1){stats[m.eq2].v++;stats[m.eq2].pts+=3;stats[m.eq1].d++;}
+  });
+  return Object.values(stats).sort((a,b)=>b.pts-a.pts||((b.mw-b.ml)-(a.mw-a.ml))||b.v-a.v);
+}
+
+function render(){
+  const state=loadState();
+  const cl=calcClassement(state);
+
+  const tbody=document.getElementById('cl-body');
+  if(cl.length===0){
+    tbody.innerHTML='<tr><td colspan="8" class="empty">La saison n\'a pas encore commencé.</td></tr>';
+  } else {
+    tbody.innerHTML=cl.map((e,i)=>{
+      const rc=i===0?'r1':i===1?'r2':i<4?'r3':'';
+      const diff=e.mw-e.ml;
+      const po=i<4?'<span class="badge-playoff">Playoff</span>':'';
+      return `<tr><td><span class="rank ${rc}">${i+1}</span></td><td class="team-name">${e.nom}</td><td style="color:var(--text-dim)">${e.j}</td><td>${e.v}</td><td style="color:var(--text-dim)">${e.d}</td><td style="color:${diff>0?'#4a8a4a':diff<0?'#8a4a4a':'var(--text-dim)'}">${diff>0?'+'+diff:diff}</td><td class="pts">${e.pts}</td><td>${po}</td></tr>`;
+    }).join('');
+  }
+
+  const rList=document.getElementById('res-list');
+  const regularMatchs=state.matchs.filter(m=>!['SF','F'].includes(m.week));
+  if(state.matchs.length===0){
+    rList.innerHTML='<div class="empty">Aucun match joué pour le moment.<br>La saison débute le 7 juillet 2025.</div>';
+  } else {
+    const byWeek={};
+    state.matchs.forEach(m=>{(byWeek[m.week]=byWeek[m.week]||[]).push(m);});
+    const wLabel=w=>w==='SF'?'Demi-finales':w==='F'?'Finale':'Match Week '+w;
+    rList.innerHTML=Object.entries(byWeek).sort((a,b)=>{
+      const o=['1','2','3','4','5','6','7','SF','F'];
+      return o.indexOf(a[0])-o.indexOf(b[0]);
+    }).map(([w,ms])=>`
+      <div class="week-label">${wLabel(w)}</div>
+      ${ms.map(m=>{
+        const s1=parseInt(m.score1),s2=parseInt(m.score2);
+        return `<div class="match-card">
+          <div class="match-teams">
+            <div class="match-eq ${s1>s2?'winner':'loser'}">${m.eq1}</div>
+            <div class="match-score">${m.score1} — ${m.score2}</div>
+            <div class="match-eq ${s2>s1?'winner':'loser'}">${m.eq2}</div>
+          </div>
+          <div class="match-meta">${m.map||''} ${m.date?'· '+m.date:''}</div>
+        </div>`;
+      }).join('')}`).join('');
+  }
+}
+
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   el.classList.add('active');
-  window.scrollTo({top: document.querySelector('.hero').offsetHeight + 60, behavior: 'smooth'});
 }
+
+window.addEventListener('storage',()=>render());
+render();
+setInterval(render, 5000);
 </script>
 </body>
 </html>
